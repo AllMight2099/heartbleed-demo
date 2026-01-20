@@ -35,5 +35,8 @@ EXPOSE 4433
 
 ENV DEMO_PASSWORD="CorrectHorseBatteryStaple"
 ENV API_KEY="sk_demo_123456"
+RUN echo "TOP_SECRET=RandomTopSecret" > /demo/secret.txt
 
-CMD ["openssl", "s_server", "-cert", "cert.pem", "-key", "key.pem", "-accept", "4433", "-www"]
+CMD ["sh", "-c", "cat /demo/secret.txt >/dev/null && openssl s_server -cert cert.pem -key key.pem -accept 4433 -www -tls1"]
+
+# CMD ["openssl", "s_server", "-cert", "cert.pem", "-key", "key.pem", "-accept", "4433", "-www"]
